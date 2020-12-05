@@ -1,0 +1,56 @@
+<!doctype html>
+<html lang="ru">
+<head>
+    <meta charset="utf-8" />
+    <title>BioMedicalSegmentation</title>
+    <link rel="stylesheet" href="../static/index.css">
+</head>
+<body>
+<div>
+    <div class="title">Сегментация КТ-изображений поясничного отдела позвоночника человека</div>
+</div>
+<div id="input-part" class="part">
+    <div>
+        <label id="upload-button" for="images-input">Выбрать изображения</label>
+        <input id="images-input" type="file" accept="image/*" multiple
+               onchange="readImagesAndShow()" hidden>
+    </div>
+    <div>
+        <label>
+            Пороговое значение (threshold)
+            <input id="threshold-input" type="number" min="0.0" max="1.0" step="0.0001"
+                   placeholder="Пороговое значение" value="0.8" onchange="checkSendButtonState()">
+        </label>
+        <input id="threshold-checkbox" type="checkbox"
+               onchange="onThresholdSwitchChange()" checked hidden>
+        <label id="threshold-switch" class="switch" for="threshold-checkbox"></label>
+    </div>
+    <div>
+        <label id="source-size-label">Получить в исходном разрешении</label>
+        <input id="source-size-checkbox" type="checkbox" checked hidden>
+        <label id="source-size-switch" class="switch" for="source-size-checkbox"></label>
+    </div>
+    <div>
+        <button id="send-button" onclick="sendImages()" disabled>Отправить</button>
+        <div id="send-status"></div>
+    </div>
+</div>
+<div id="image-part" class="part hide">
+    <div class="part-title">Выбранные изображения</div>
+    <div id="image-part-title-count"></div>
+    <div id="image-container-visibility-button">Скрыть</div>
+    <div id="image-container" class="container"></div>
+</div>
+<div id="result-part" class="part hide">
+    <div id="result-part-title" class="part-title">Полученные изображения</div>
+    <div id="download-all" class="hide">Скачать всё</div>
+    <div id="result-container-visibility-button">Скрыть</div>
+    <div id="result-container" class="container"></div>
+</div>
+<div id="image-modal" class="modal hide">
+    <span class="close">&times;</span>
+    <img id="image-modal-content" class="modal-content" src="" alt=""/>
+</div>
+</body>
+<script src="../static/index.js"></script>
+</html>

@@ -1,0 +1,287 @@
+html {
+    color: white;
+    font-family: Arial, sans-serif;
+    user-select: none;
+}
+
+body {
+    background-color: #1A1A1D;
+}
+
+.title {
+    width: 70%;
+    text-align: center;
+    font-size: 2.5rem;
+    margin: auto;
+}
+
+#input-part {
+    text-align: center;
+}
+
+#upload-button {
+    display: block;
+    width: 22rem;
+    text-decoration: none;
+    padding: 8px 20px;
+    border: none;
+    border-radius: 3px;
+    font-size: 1.2rem !important;
+    font-weight: bold;
+    color: black;
+    background: white;
+    cursor: pointer;
+    margin: auto;
+}
+
+#upload-button:hover {
+    background: #e0e0e0;
+}
+
+#upload-button:active {
+    background: #c4c4c4;
+}
+
+.switch {
+    display: inline-block;
+    position: relative;
+    width: 50px;
+    height: 25px;
+    border-radius: 20px;
+    background: black;
+    transition: background 0.28s cubic-bezier(0.4, 0, 0.2, 1);
+    vertical-align: middle;
+    cursor: pointer;
+}
+
+.switch::before {
+    content: '';
+    position: absolute;
+    top: 1px;
+    left: 2px;
+    width: 22px;
+    height: 22px;
+    background: #fafafa;
+    border-radius: 50%;
+    transition: left 0.28s cubic-bezier(0.4, 0, 0.2, 1), background 0.28s cubic-bezier(0.4, 0, 0.2, 1), box-shadow 0.28s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.switch:active::before {
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.28), 0 0 0 20px rgba(128, 128, 128, 0.1);
+}
+
+input:checked + .switch {
+    background: white;
+}
+
+input:checked + .switch::before {
+    left: 27px;
+    background: black;
+}
+
+input:checked + .switch:active::before {
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.28), 0 0 0 20px rgba(0, 150, 136, 0.2);
+}
+
+input:not(:checked) + .switch::before {
+    background: white;
+}
+
+#threshold-input {
+    width: 12rem;
+    padding: 0.3rem;
+    border: none;
+    background-color: white;
+    border-radius: 3px;
+    font-size: 1.05rem;
+    margin: 0 1rem;
+}
+
+#source-size-label {
+    margin: 0 1rem;
+}
+
+#send-button {
+    width: 15rem;
+    text-decoration: none;
+    padding: 8px 20px;
+    border: none;
+    border-radius: 3px;
+    font-size: 1.2rem;
+    font-weight: bold;
+    color: black;
+    background: white;
+    cursor: pointer;
+}
+
+#send-button:hover {
+    background: #e0e0e0;
+}
+
+#send-button:active {
+    background: #c4c4c4;
+}
+
+#send-button:disabled, #threshold-input:disabled {
+    background: #222;
+    color: gray;
+}
+
+#send-status {
+    font-size: 1.1rem;
+    margin: 0.5rem;
+}
+
+#send-status.error {
+    color: red;
+}
+
+#threshold-input:disabled {
+    -moz-appearance: textfield;
+}
+
+#input-part label {
+    font-size: 1.2rem;
+}
+
+#input-part > div {
+    margin: 0.8rem 0;
+}
+
+.part {
+    margin: 2rem 0;
+}
+
+.part-title, #image-part-title-count, #download-all {
+    font-size: 1.5rem;
+    padding: 0.5rem;
+}
+
+#image-container-visibility-button, #result-container-visibility-button {
+    font-size: 1.3rem;
+    padding: 0.5rem;
+}
+
+#image-container-visibility-button, #result-container-visibility-button, #download-all {
+    cursor: pointer;
+}
+
+.part-title, #image-part-title-count, #download-all {
+    display: inline-block;
+}
+
+.hide {
+    display: none !important;
+}
+
+.container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(12rem, 0.2fr));
+}
+
+.card {
+    display: block;
+    background-color: #090909;
+    border: 1px solid white;
+    margin: 0.5rem;
+}
+
+.card > .title {
+    display: block;
+    font-size: 1.15rem;
+    padding: 0.4rem 0.3rem;
+    text-align: center;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.card > .image {
+    width: 100%;
+    height: 0;
+    background-size: contain;
+    background-repeat: no-repeat;
+    border-bottom: 1px solid white;
+    padding-bottom: 100%;
+}
+
+.card > .error {
+    color: red;
+    text-align: center;
+    font-size: 1.5rem;
+    padding: 1rem;
+}
+
+.card.error {
+    border: 1px solid red;
+}
+
+.card > .download-button {
+    margin: 0.3rem auto;
+    display: block;
+    font-size: 1rem;
+    padding: 0.1rem 1.5rem;
+    border-radius: 3px;
+    border: none;
+    cursor: pointer;
+}
+
+.card.clicked {
+    cursor: pointer;
+}
+
+.card.clicked:hover {
+    transform: scale(1.02);
+}
+
+#image-modal {
+    border-radius: 5px;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.modal {
+    position: fixed;
+    z-index: 1;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0, 0, 0, 0.75);
+    box-sizing: border-box;
+    padding: 2rem;
+}
+
+.modal-content {
+    margin: auto;
+    display: block;
+    max-width: 90vmin;
+    max-height: 90vmin;
+    animation-name: zoom;
+    animation-duration: 0.6s;
+}
+
+@keyframes zoom {
+    from {
+        transform: scale(0)
+    }
+    to {
+        transform: scale(1)
+    }
+}
+
+.close {
+    position: absolute;
+    top: 1rem;
+    right: 3rem;
+    color: #f1f1f1;
+    font-size: 3rem;
+    font-weight: bold;
+    transition: 0.3s;
+}
+
+.close:hover, .close:focus {
+    color: #bbb;
+    text-decoration: none;
+    cursor: pointer;
+}
