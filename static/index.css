@@ -42,6 +42,12 @@ body {
     background: #c4c4c4;
 }
 
+#upload-button.hide {
+    display: block !important;
+    background-color: #222;
+    color: #808080;
+}
+
 .switch {
     display: inline-block;
     position: relative;
@@ -284,4 +290,8 @@ input:not(:checked) + .switch::before {
     color: #bbb;
     text-decoration: none;
     cursor: pointer;
+}
+
+.disabled {
+    color: gray;
 }

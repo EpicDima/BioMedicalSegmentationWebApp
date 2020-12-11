@@ -1,8 +1,11 @@
 const MAX_IMAGES = 50;
 
+const uploadButton = document.getElementById("upload-button");
 const imagesInput = document.getElementById("images-input");
+const thresholdLabel = document.getElementById("threshold-label");
 const thresholdInput = document.getElementById("threshold-input");
 const thresholdCheckbox = document.getElementById("threshold-checkbox");
+const sourceSizeLabel = document.getElementById("source-size-label");
 const sourceSizeCheckbox = document.getElementById("source-size-checkbox");
 
 const imagePart = document.getElementById("image-part");
@@ -130,6 +133,8 @@ function readImagesAndShow() {
 async function sendImages() {
     if (imagesInput.files && imagesInput.files.length > 0) {
         sending = true;
+        imagesInput.disabled = true;
+        uploadButton.classList.add("hide");
         sendButton.disabled = true;
         sendStatus.innerText = "Отправка";
         sendStatus.classList.remove("error");
@@ -161,6 +166,8 @@ async function sendImages() {
             sendStatus.innerText = "Неизвестная ошибка отправки";
         }
         sending = false;
+        imagesInput.disabled = false;
+        uploadButton.classList.remove("hide");
         sendButton.disabled = false;
     }
 }
@@ -216,7 +223,8 @@ function createImageCard(filename, imageData, qualifier, needButton) {
         const downloadButton = document.createElement("button");
         downloadButton.className = "download-button";
         downloadButton.innerText = "Скачать";
-        downloadButton.onclick = () => {
+        downloadButton.onclick = (e) => {
+            e.stopPropagation();
             const a = document.createElement("a");
             a.download = cardId;
             a.href = imageData;
@@ -229,7 +237,20 @@ function createImageCard(filename, imageData, qualifier, needButton) {
 
 function onThresholdSwitchChange() {
     thresholdInput.disabled = !thresholdCheckbox.checked;
+    if (thresholdCheckbox.checked) {
+        thresholdLabel.classList.remove("disabled");
+    } else {
+        thresholdLabel.classList.add("disabled");
+    }
     checkSendButtonState();
+}
+
+function onSourceSizeSwitchChange() {
+    if (sourceSizeCheckbox.checked) {
+        sourceSizeLabel.classList.remove("disabled");
+    } else {
+        sourceSizeLabel.classList.add("disabled");
+    }
 }
 
 function checkSendButtonState() {

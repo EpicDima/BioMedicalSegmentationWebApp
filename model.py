@@ -1,16 +1,12 @@
 import sys
-
-from typing import Optional
 from threading import RLock
-
-import torch
-
-import numpy as np
+from typing import Optional
 
 import albumentations as A
-from albumentations.pytorch.transforms import ToTensorV2
-
+import numpy as np
 import segmentation_models_pytorch as smp
+import torch
+from albumentations.pytorch.transforms import ToTensorV2
 
 
 def get_mean_and_std(encoder: str = "timm-efficientnet-b3", encoder_weights: str = "noisy-student") -> tuple:

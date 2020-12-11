@@ -1,13 +1,12 @@
-from flask import Flask, request, render_template, send_from_directory
-
+import base64
 import os
 import sys
-from typing import Optional
-import base64
 from io import BytesIO
+from typing import Optional
 
 import numpy as np
 from PIL import Image
+from flask import Flask, request, render_template, send_from_directory
 
 import model
 

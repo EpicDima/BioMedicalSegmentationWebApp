@@ -1,7 +1,7 @@
 <!doctype html>
 <html lang="ru">
 <head>
-    <meta charset="utf-8" />
+    <meta charset="utf-8"/>
     <title>BioMedicalSegmentation</title>
     <link rel="stylesheet" href="../static/index.css">
 </head>
@@ -16,7 +16,7 @@
                onchange="readImagesAndShow()" hidden>
     </div>
     <div>
-        <label>
+        <label id="threshold-label">
             Пороговое значение (threshold)
             <input id="threshold-input" type="number" min="0.0" max="1.0" step="0.0001"
                    placeholder="Пороговое значение" value="0.8" onchange="checkSendButtonState()">
@@ -27,7 +27,8 @@
     </div>
     <div>
         <label id="source-size-label">Получить в исходном разрешении</label>
-        <input id="source-size-checkbox" type="checkbox" checked hidden>
+        <input id="source-size-checkbox" type="checkbox"
+               onchange="onSourceSizeSwitchChange()" checked hidden>
         <label id="source-size-switch" class="switch" for="source-size-checkbox"></label>
     </div>
     <div>
