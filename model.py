@@ -11,7 +11,7 @@ from albumentations.pytorch.transforms import ToTensorV2
 
 def get_mean_and_std(encoder: str = "timm-efficientnet-b3", encoder_weights: str = "noisy-student") -> tuple:
     """
-    Gets the average and standard distribution for image normalization for a given encoder.
+    Gets the average and standard deviation for image normalization for a given encoder.
 
     Parameters
     ----------
@@ -30,6 +30,33 @@ def get_mean_and_std(encoder: str = "timm-efficientnet-b3", encoder_weights: str
     """
     preprocessing_params = smp.encoders.get_preprocessing_params(encoder, encoder_weights)
     return preprocessing_params["mean"], preprocessing_params["std"]
+
+
+def prepare_model(model_path: str = "models/teb3_ns_unet_9665.pth") -> tuple:
+    """
+    Prepares the objects that are required for segmentation:
+    - a neural network;
+    - a device for computing;
+    - the mean and standard deviation for the normalization of input images.
+
+    Parameters
+    ----------
+    model_path : str
+        Path to the file that is a pre-trained neural network.
+
+    Returns
+    -------
+    tuple
+        A tuple of four elements:
+        - a neural network;
+        - a device for computing;
+        - a mean for the normalization of input images;
+        - a standard deviation for the normalization of input images.
+
+    """
+    device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
+    model = torch.load(model_path, map_location=device).eval()
+    return model, device, get_mean_and_std()
 
 
 def transforms(image_size: int = 224, mean: tuple = None, std: tuple = None) -> A.Compose:
@@ -179,33 +206,6 @@ def predict(image: np.ndarray, threshold: float = None, source_size: bool = Fals
     return predict_image_safe(model, device, image, transforms(224, mean, std), threshold, source_size)
 
 
-def prepare_model(model_path: str = "models/teb3_ns_unet_9665.pth") -> tuple:
-    """
-    Prepares the objects that are required for segmentation:
-    - a neural network;
-    - a device for computing;
-    - the mean and standard deviation for the normalization of input images.
-
-    Parameters
-    ----------
-    model_path : str
-        Path to the file that is a pre-trained neural network.
-
-    Returns
-    -------
-    tuple
-        A tuple of four elements:
-        - a neural network;
-        - a device for computing;
-        - a mean for the normalization of input images;
-        - a standard deviation for the normalization of input images.
-
-    """
-    device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
-    model = torch.load(model_path, map_location=device).eval()
-    return model, device, get_mean_and_std()
-
-
 lock = RLock()
 
-model, device, mean, std = prepare_model()
+model, device, (mean, std) = prepare_model()
