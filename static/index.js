@@ -28,6 +28,8 @@ let sending = false;
 setup();
 
 function setup() {
+    // Initial setup of some parameters.
+
     document.getElementById("images-input").value = "";
     document.getElementById("threshold-checkbox").checked = true;
     setupImageContainerVisibilityButton();
@@ -46,14 +48,20 @@ function setup() {
 }
 
 function setupImageContainerVisibilityButton() {
+    // Setting parameters for the visibility button of the container with the original images.
+
     setupVisibilityButton(document.getElementById("image-container-visibility-button"), imageContainer);
 }
 
 function setupResultContainerVisibilityButton() {
+    // Setting parameters for the visibility button of the container with the resulting images.
+
     setupVisibilityButton(document.getElementById("result-container-visibility-button"), resultContainer);
 }
 
 function setupVisibilityButton(button, container) {
+    // Setting parameters for the visibility button of the container.
+
     button.innerText = "Скрыть";
     button.onclick = () => {
         if (container.classList.contains("hide")) {
@@ -67,6 +75,8 @@ function setupVisibilityButton(button, container) {
 }
 
 function setupModal() {
+    // Setting modal window parameters.
+
     modal.querySelector(".close").onclick = () => {
         modal.classList.add("hide");
         modalImage.src = "";
@@ -74,18 +84,24 @@ function setupModal() {
 }
 
 function resetImageContainer() {
+    // Resetting the container with the original images.
+
     imageContainer.innerHTML = "";
     imageContainer.classList.remove("hide");
     setupImageContainerVisibilityButton();
 }
 
 function resetResultContainer() {
+    // Resetting the container with the resulting images.
+
     resultContainer.innerHTML = "";
     resultContainer.classList.remove("hide");
     setupResultContainerVisibilityButton();
 }
 
 function getImagesFromInput() {
+    // Getting images from the input field.
+
     if (imagesInput.files && imagesInput.files.length > 0) {
         const files = [];
         let count = 0;
@@ -105,6 +121,8 @@ function getImagesFromInput() {
 
 
 function readImagesAndShow() {
+    // Getting images from the input field and displaying them on the screen.
+
     const files = getImagesFromInput();
     if (files && files.length > 0) {
         sendStatus.innerText = "";
@@ -131,6 +149,8 @@ function readImagesAndShow() {
 }
 
 async function sendImages() {
+    // Sending user-selected images for processing, receiving results and displaying them.
+
     if (imagesInput.files && imagesInput.files.length > 0) {
         sending = true;
         imagesInput.disabled = true;
@@ -173,6 +193,8 @@ async function sendImages() {
 }
 
 function prepareFormData() {
+    // Prepare request parameters for segmentation.
+
     downloadAllButton.classList.add("hide");
     resultContainer.innerHTML = "";
     const formData = new FormData();
@@ -194,6 +216,8 @@ function prepareFormData() {
 }
 
 function createImageCard(filename, imageData, qualifier, needButton) {
+    // Creating a DOM element with an image for the container.
+
     const card = document.createElement("div");
     const cardId = `${qualifier}-${filename}`;
     card.id = cardId;
@@ -236,6 +260,9 @@ function createImageCard(filename, imageData, qualifier, needButton) {
 }
 
 function onThresholdSwitchChange() {
+    // Changing the visibility of the threshold value input field
+    // when switching the switch.
+
     thresholdInput.disabled = !thresholdCheckbox.checked;
     if (thresholdCheckbox.checked) {
         thresholdLabel.classList.remove("disabled");
@@ -246,6 +273,9 @@ function onThresholdSwitchChange() {
 }
 
 function onSourceSizeSwitchChange() {
+    // Changing the visibility of the source size value input
+    // field when switching the switch.
+
     if (sourceSizeCheckbox.checked) {
         sourceSizeLabel.classList.remove("disabled");
     } else {
@@ -254,6 +284,9 @@ function onSourceSizeSwitchChange() {
 }
 
 function checkSendButtonState() {
+    // Toggles the state of the send button and the file selection button
+    // when you enter different values in the input fields.
+
     let disabled = false;
     if (thresholdCheckbox.checked) {
         if (!thresholdInput.validity.valid) {
