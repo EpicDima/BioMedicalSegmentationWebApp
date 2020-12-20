@@ -31,7 +31,8 @@ function setup() {
     // Initial setup of some parameters.
 
     document.getElementById("images-input").value = "";
-    document.getElementById("threshold-checkbox").checked = true;
+    thresholdCheckbox.checked = true;
+    sourceSizeCheckbox.checked = true;
     setupImageContainerVisibilityButton();
     setupResultContainerVisibilityButton();
     downloadAllButton.onclick = () => {
